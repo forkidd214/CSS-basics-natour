@@ -1,0 +1,157 @@
+@use '../abstracts' as *;
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: transparent;
+  // background-color: rgba($color-white, 0.1);
+  // backdrop-filter: blur(10px) brightness(60%);
+  z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  &__content {
+    @include absolute-center;
+    // height: 60rem;
+    width: 88%;
+    background-color: $color-white;
+    border-radius: 3px;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    overflow: hidden;
+    display: table;
+
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: all 0.5s 0.2s;
+
+    @include respond-to('2xl') {
+      width: 75%;
+    }
+    @include respond-to('xl') {
+      width: 95%;
+    }
+    @include respond-to('lg') {
+      display: block;
+      width: 80%;
+      max-height: 80%;
+    }
+  }
+
+  &__left {
+    width: 33.333333%;
+    display: table-cell;
+
+    @include respond-to('lg') {
+      display: block;
+      width: 100%;
+      height: 30rem;
+    }
+  }
+
+  &__right {
+    width: 66.666667%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3rem 5rem;
+
+    @include respond-to('xl') {
+      padding: 1rem 2rem;
+    }
+    @include respond-to('lg') {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+
+    @include respond-to('lg') {
+      object-fit: cover;
+      height: 100%;
+    }
+
+    &:not(:first-child) {
+      @include respond-to('lg') {
+        display: none;
+      }
+    }
+  }
+
+  &__text {
+    font-size: 1.4rem;
+
+    column-count: 2;
+    column-gap: 4rem;
+    column-rule: 1px solid $color-gray-light-2;
+
+    hyphens: auto;
+
+    @include respond-to('xl') {
+      column-count: 1;
+    }
+    @include respond-to('lg') {
+      display: inline-block;
+      text-align: left;
+    }
+    @include respond-to('sm') {
+      display: none;
+    }
+  }
+
+  // OPEN STATE
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:target &__content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__close {
+    &:link,
+    &:visited {
+      position: absolute;
+      top: 3rem;
+      right: 3rem;
+      font-size: 3rem;
+      text-decoration: none;
+      line-height: 1;
+      color: $color-gray-dark-1;
+
+      @include respond-to('lg') {
+        display: none;
+      }
+    }
+
+    &:hover,
+    &:active {
+      color: $color-primary;
+    }
+  }
+
+  &__close-bg {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100%;
+      background-color: rgba($color-white, 0.1);
+      backdrop-filter: blur(10px) brightness(60%);
+      cursor: default;
+    }
+  }
+}

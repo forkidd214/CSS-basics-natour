@@ -1,0 +1,60 @@
+@use '../abstracts' as *;
+
+.row {
+  max-width: $grid-width;
+  // background-color: #eee;
+  margin: 0 auto;
+
+  &:not(:last-of-type) {
+    margin-bottom: $grid-gutter-vertical;
+  }
+
+  @include respond-to('lg') {
+    max-width: $grid-width-sm;
+  }
+
+  @include clearfix;
+
+  [class^='col-'] {
+    // background-color: orangered;
+    float: left;
+
+    &:not(:last-of-type) {
+      margin-right: $grid-gutter-horizontal;
+
+      @include respond-to('lg') {
+        margin-right: 0;
+        margin-bottom: $grid-gutter-vertical-sm;
+      }
+    }
+
+    @include respond-to('lg') {
+      width: 100% !important;
+    }
+  }
+
+  .col-1-of-2 {
+    width: calc((100% - #{$grid-gutter-horizontal}) / 2);
+  }
+  .col-1-of-3 {
+    width: calc((100% - 2 *#{$grid-gutter-horizontal}) / 3);
+  }
+  .col-2-of-3 {
+    width: calc(
+      (2 * (100% - 2 * #{$grid-gutter-horizontal}) / 3) + #{$grid-gutter-horizontal}
+    );
+  }
+  .col-1-of-4 {
+    width: calc((100% - 3 *#{$grid-gutter-horizontal}) / 4);
+  }
+  .col-2-of-4 {
+    width: calc(
+      2 * ((100% - 3 *#{$grid-gutter-horizontal}) / 4) + #{$grid-gutter-horizontal}
+    );
+  }
+  .col-3-of-4 {
+    width: calc(
+      3 * ((100% - 3 *#{$grid-gutter-horizontal}) / 4) + 2 * #{$grid-gutter-horizontal}
+    );
+  }
+}

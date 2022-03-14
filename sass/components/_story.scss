@@ -1,0 +1,85 @@
+@use '../abstracts' as *;
+
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba($color-black, 0.1);
+  border-radius: 3px;
+  background-color: rgba($color-white, 0.6);
+  padding: 6rem;
+  padding-left: 9rem;
+  font-size: $font-size-default;
+  transform: skewX(-12deg);
+  // If direct child have a property of transform then the code below does not work
+  // So add it to every direct child manually
+  // & > * {
+  //   transform: skewX(12deg);
+  // }
+
+  @include respond-to('lg') {
+    width: 100%;
+    padding: 4rem;
+    padding-left: 7rem;
+  }
+
+  @include respond-to('sm') {
+    transform: skewX(0);
+  }
+
+  &__shape {
+    width: 15rem;
+    height: 15rem;
+    float: left;
+    shape-outside: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    transform: translateX(-3rem) skewX(12deg);
+    overflow: hidden;
+    position: relative;
+
+    @include respond-to('sm') {
+      transform: translateX(-3rem) skewX(0);
+    }
+  }
+
+  &__img {
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.4);
+    transition: all 0.5s;
+    backface-visibility: hidden;
+  }
+
+  &__caption {
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color-white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    opacity: 0;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+  }
+
+  &__text {
+    transform: skewX(12deg);
+
+    @include respond-to('sm') {
+      transform: skewX(0);
+    }
+  }
+
+  &:hover &__caption {
+    transform: translate(-50%, -50%) translateZ(0);
+    opacity: 1;
+  }
+
+  &:hover &__img {
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(3px) brightness(80%);
+  }
+}

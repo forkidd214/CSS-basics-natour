@@ -1,0 +1,48 @@
+/// MEDIA QUERY ORDER: html,body > reset, typography > layout, grid > pages > components
+
+/// Breakpoints
+/* prettier-ignore */
+$breakpoints: (
+  'sm': (max-width: 30em, ),  // ~ 480px
+  'lg': (max-width: 62em, ),  // ~ 992px
+  'xl': (max-width: 80em, ),  // ~ 1280px
+  '2xl': (min-width: 96em, ), // 1536px ~
+);
+
+/// Responsive breakpoint manager
+/// @access public
+/// @param {String} $breakpoint - Breakpoint
+/// @requires $breakpoints
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == 'string',
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+
+    @media only screen and #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+    +'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
